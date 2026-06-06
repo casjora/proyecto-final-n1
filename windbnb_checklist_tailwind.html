@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Windbnb Checklist Progresivo - Tailwind CSS</title>
+    <!-- Tailwind CSS CDN -->
+     <link rel="stylesheet" href="./src/style.css">
+</head>
+<body class="bg-slate-50 text-slate-800 p-4 md:p-8 min-h-screen flex justify-center items-start">
+
+<div class="w-full max-w-3xl bg-white rounded-2xl shadow-sm border border-slate-100 p-6 md:p-8 my-4">
+    <header class="text-center mb-8 pb-6 border-b border-slate-100">
+        <h1 class="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight flex items-center justify-center gap-2">
+            Windbnb Project Checklist 🏡
+        </h1>
+        <p class="text-sm text-slate-500 mt-2 font-medium">
+            Seguimiento interactivo de desarrollo estructurado con Tailwind CSS
+        </p>
+    </header>
+
+    <!-- Dashboard de Progreso -->
+    <div class="bg-slate-100/70 rounded-xl p-5 mb-8 grid grid-cols-1 sm:grid-cols-2 gap-4 border border-slate-200/50">
+        <div class="text-center bg-white p-4 rounded-lg border border-slate-200/60 shadow-sm">
+            <div class="text-xs uppercase tracking-wider text-slate-400 font-bold mb-1">Tareas Completadas</div>
+            <div class="text-xl font-bold text-slate-800" id="task-stats">0 de 19</div>
+        </div>
+        <div class="text-center bg-white p-4 rounded-lg border border-slate-200/60 shadow-sm">
+            <div class="text-xs uppercase tracking-wider text-slate-400 font-bold mb-1">Puntaje de Evaluación</div>
+            <div class="text-xl font-bold text-rose-600" id="score-stats">0 / 100 pts</div>
+        </div>
+        <div class="col-span-1 sm:col-span-2 bg-slate-200 rounded-full h-3 overflow-hidden mt-1">
+            <div class="bg-emerald-500 h-full w-0 transition-all duration-300 rounded-full" id="progress-bar"></div>
+        </div>
+    </div>
+
+    <form id="checklist-form" onsubmit="event.preventDefault();">
+        <!-- FASE 1 -->
+        <div class="mb-8">
+            <div class="text-sm font-bold text-slate-700 border-l-4 border-slate-800 pl-3 py-1 bg-slate-50 rounded-r mb-4 uppercase tracking-wider">
+                Fase 1: Configuración Inicial y Repositorio
+            </div>
+            <div class="space-y-3">
+                <label id="item-t01" class="flex items-start gap-4 p-4 rounded-xl border border-slate-100 bg-white hover:bg-slate-50/60 transition-all duration-200 cursor-pointer group">
+                    <input type="checkbox" class="task-checkbox mt-1 w-4 h-4 rounded text-rose-500 focus:ring-rose-500 accent-rose-500 cursor-pointer" id="t01" data-points="0">
+                    <div class="flex-1">
+                        <div id="text-t01" class="text-sm font-semibold text-slate-800 transition-all">Crear el repositorio en GitHub para el proyecto</div>
+                        <div class="flex justify-between items-center mt-2 text-xs text-slate-400">
+                            <span>Puntos: <span id="badge-t01" class="bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-bold">0 pts</span></span>
+                            <span>Requisito de control</span>
+                        </div>
+                    </div>
+                </label>
+
+                <label id="item-t02" class="flex items-start gap-4 p-4 rounded-xl border border-slate-100 bg-white hover:bg-slate-50/60 transition-all duration-200 cursor-pointer group">
+                    <input type="checkbox" class="task-checkbox mt-1 w-4 h-4 rounded text-rose-500 focus:ring-rose-500 accent-rose-500 cursor-pointer" id="t02" data-points="0">
+                    <div class="flex-1">
+                        <div id="text-t02" class="text-sm font-semibold text-slate-800 transition-all">Descargar/Clonar el repositorio base proporcionado (Template)</div>
+                        <div class="flex justify-between items-center mt-2 text-xs text-slate-400">
+                            <span>Puntos: <span id="badge-t02" class="bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-bold">0 pts</span></span>
+                            <span>Estructura inicial</span>
+                        </div>
+                    </div>
+                </label>
+
+                <label id="item-t03" class="flex items-start gap-4 p-4 rounded-xl border border-slate-100 bg-white hover:bg-slate-50/60 transition-all duration-200 cursor-pointer group">
+                    <input type="checkbox" class="task-checkbox mt-1 w-4 h-4 rounded text-rose-500 focus:ring-rose-500 accent-rose-500 cursor-pointer" id="t03" data-points="0">
+                    <div class="flex-1">
+                        <div id="text-t03" class="text-sm font-semibold text-slate-800 transition-all">Vincular stays.js localmente para consumir los datos de las estancias</div>
+                        <div class="flex justify-between items-center mt-2 text-xs text-slate-400">
+                            <span>Puntos: <span id="badge-t03" class="bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-bold">0 pts</span></span>
+                            <span>Manejo de datos locales</span>
+                        </div>
+                    </div>
+                </label>
+
+                <label id="item-t04" class="flex items-start gap-4 p-4 rounded-xl border border-slate-100 bg-white hover:bg-slate-50/60 transition-all duration-200 cursor-pointer group">
+                    <input type="checkbox" class="task-checkbox mt-1 w-4 h-4 rounded text-rose-500 focus:ring-rose-500 accent-rose-500 cursor-pointer" id="t04" data-points="0">
+                    <div class="flex-1">
+                        <div id="text-t04" class="text-sm font-semibold text-slate-800 transition-all">Configurar entorno inicial vinculando index.html, scripts y TailwindCSS</div>
+                        <div class="flex justify-between items-center mt-2 text-xs text-slate-400">
+                            <span>Puntos: <span id="badge-t04" class="bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-bold">0 pts</span></span>
+                            <span>Entorno de desarrollo listo</span>
+                        </div>
+                    </div>
+                </label>
+            </div>
+        </div>
+
+        <!-- FASE 2 -->
+        <div class="mb-8">
+            <div class="text-sm font-bold text-rose-700 border-l-4 border-rose-500 pl-3 py-1 bg-rose-50/50 rounded-r mb-4 uppercase tracking-wider">
+                Fase 2: Maquetación y Diseño Responsivo (25 Puntos)
+            </div>
+            <div class="space-y-3">
+                <label id="item-t05" class="flex items-start gap-4 p-4 rounded-xl border border-slate-100 bg-white hover:bg-slate-50/60 transition-all duration-200 cursor-pointer group">
+                    <input type="checkbox" class="task-checkbox mt-1 w-4 h-4 rounded text-rose-500 focus:ring-rose-500 accent-rose-500 cursor-pointer" id="t05" data-points="5">
+                    <div class="flex-1">
+                        <div id="text-t05" class="text-sm font-semibold text-slate-800 transition-all">Estructurar el HTML semántico (Header, buscador principal, área de tarjetas)</div>
+                        <div class="flex justify-between items-center mt-2 text-xs text-slate-400">
+                            <span>Puntos: <span id="badge-t05" class="bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-bold">5 pts</span></span>
+                            <span>Estructura base</span>
+                        </div>
+                    </div>
+                </label>
+
+                <label id="item-t06" class="flex items-start gap-4 p-4 rounded-xl border border-slate-100 bg-white hover:bg-slate-50/60 transition-all duration-200 cursor-pointer group">
+                    <input type="checkbox" class="task-checkbox mt-1 w-4 h-4 rounded text-rose-500 focus:ring-rose-500 accent-rose-500 cursor-pointer" id="t06" data-points="10">
+                    <div class="flex-1">
+                        <div id="text-t06" class="text-sm font-semibold text-slate-800 transition-all">Aplicar TailwindCSS con enfoque Mobile-First (Adaptación móvil fluida)</div>
+                        <div class="flex justify-between items-center mt-2 text-xs text-slate-400">
+                            <span>Puntos: <span id="badge-t06" class="bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-bold">10 pts</span></span>
+                            <span>Diseño Responsivo</span>
+                        </div>
+                    </div>
+                </label>
+
+                <label id="item-t07" class="flex items-start gap-4 p-4 rounded-xl border border-slate-100 bg-white hover:bg-slate-50/60 transition-all duration-200 cursor-pointer group">
+                    <input type="checkbox" class="task-checkbox mt-1 w-4 h-4 rounded text-rose-500 focus:ring-rose-500 accent-rose-500 cursor-pointer" id="t07" data-points="10">
+                    <div class="flex-1">
+                        <div id="text-t07" class="text-sm font-semibold text-slate-800 transition-all">Adaptar a Desktop usando Grid y clases responsivas de Tailwind</div>
+                        <div class="flex justify-between items-center mt-2 text-xs text-slate-400">
+                            <span>Puntos: <span id="badge-t07" class="bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-bold">10 pts</span></span>
+                            <span>Diseño Responsivo</span>
+                        </div>
+                    </div>
+                </label>
+
+                <label id="item-t08" class="flex items-start gap-4 p-4 rounded-xl border border-slate-100 bg-white hover:bg-slate-50/60 transition-all duration-200 cursor-pointer group">
+                    <input type="checkbox" class="task-checkbox mt-1 w-4 h-4 rounded text-rose-500 focus:ring-rose-500 accent-rose-500 cursor-pointer" id="t08" data-points="0">
+                    <div class="flex-1">
+                        <div id="text-t08" class="text-sm font-semibold text-slate-800 transition-all">Garantizar fidelidad estricta al diseño original propuesto por DevChallenges</div>
+                        <div class="flex justify-between items-center mt-2 text-xs text-slate-400">
+                            <span>Puntos: <span id="badge-t08" class="bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-bold">Obligatorio</span></span>
+                            <span>Fidelidad de Layout</span>
+                        </div>
+                    </div>
+                </label>
+
+                <label id="item-t09" class="flex items-start gap-4 p-4 rounded-xl border border-slate-100 bg-white hover:bg-slate-50/60 transition-all duration-200 cursor-pointer group">
+                    <input type="checkbox" class="task-checkbox mt-1 w-4 h-4 rounded text-rose-500 focus:ring-rose-500 accent-rose-500 cursor-pointer" id="t09" data-points="0">
+                    <div class="flex-1">
+                        <div id="text-t09" class="text-sm font-semibold text-slate-800 transition-all">Agregar estilos CSS adicionales (Para transiciones o estilos finos no de Tailwind)</div>
+                        <div class="flex justify-between items-center mt-2 text-xs text-slate-400">
+                            <span>Puntos: <span id="badge-t09" class="bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-bold">Opcional</span></span>
+                            <span>Estilos a la medida</span>
+                        </div>
+                    </div>
+                </label>
+            </div>
+        </div>
+
+        <!-- FASE 3 -->
+        <div class="mb-8">
+            <div class="text-sm font-bold text-cyan-700 border-l-4 border-cyan-500 pl-3 py-1 bg-cyan-50/50 rounded-r mb-4 uppercase tracking-wider">
+                Fase 3: Modularidad y Lógica en JavaScript Vanilla (50 Puntos)
+            </div>
+            <div class="space-y-3">
+                <label id="item-t10" class="flex items-start gap-4 p-4 rounded-xl border border-slate-100 bg-white hover:bg-slate-50/60 transition-all duration-200 cursor-pointer group">
+                    <input type="checkbox" class="task-checkbox mt-1 w-4 h-4 rounded text-rose-500 focus:ring-rose-500 accent-rose-500 cursor-pointer" id="t10" data-points="10">
+                    <div class="flex-1">
+                        <div id="text-t10" class="text-sm font-semibold text-slate-800 transition-all">Configurar modularidad organizando el código mediante import y export</div>
+                        <div class="flex justify-between items-center mt-2 text-xs text-slate-400">
+                            <span>Puntos: <span id="badge-t10" class="bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-bold">10 pts</span></span>
+                            <span>Estructura modular</span>
+                        </div>
+                    </div>
+                </label>
+
+                <label id="item-t11" class="flex items-start gap-4 p-4 rounded-xl border border-slate-100 bg-white hover:bg-slate-50/60 transition-all duration-200 cursor-pointer group">
+                    <input type="checkbox" class="task-checkbox mt-1 w-4 h-4 rounded text-rose-500 focus:ring-rose-500 accent-rose-500 cursor-pointer" id="t11" data-points="10">
+                    <div class="flex-1">
+                        <div id="text-t11" class="text-sm font-semibold text-slate-800 transition-all">Consumir e importar los datos de las estancias de forma limpia desde stays.js</div>
+                        <div class="flex justify-between items-center mt-2 text-xs text-slate-400">
+                            <span>Puntos: <span id="badge-t11" class="bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-bold">10 pts</span></span>
+                            <span>Consumo de datos</span>
+                        </div>
+                    </div>
+                </label>
+
+                <label id="item-t12" class="flex items-start gap-4 p-4 rounded-xl border border-slate-100 bg-white hover:bg-slate-50/60 transition-all duration-200 cursor-pointer group">
+                    <input type="checkbox" class="task-checkbox mt-1 w-4 h-4 rounded text-rose-500 focus:ring-rose-500 accent-rose-500 cursor-pointer" id="t12" data-points="5">
+                    <div class="flex-1">
+                        <div id="text-t12" class="text-sm font-semibold text-slate-800 transition-all">Implementar renderizado dinámico de la lista de estancias en el DOM</div>
+                        <div class="flex justify-between items-center mt-2 text-xs text-slate-400">
+                            <span>Puntos: <span id="badge-t12" class="bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-bold">5 pts</span></span>
+                            <span>Manipulación del DOM</span>
+                        </div>
+                    </div>
+                </label>
+
+                <label id="item-t13" class="flex items-start gap-4 p-4 rounded-xl border border-slate-100 bg-white hover:bg-slate-50/60 transition-all duration-200 cursor-pointer group">
+                    <input type="checkbox" class="task-checkbox mt-1 w-4 h-4 rounded text-rose-500 focus:ring-rose-500 accent-rose-500 cursor-pointer" id="t13" data-points="5">
+                    <div class="flex-1">
+                        <div id="text-t13" class="text-sm font-semibold text-slate-800 transition-all">Implementar apertura, interacción y cierre del panel expandido de búsqueda</div>
+                        <div class="flex justify-between items-center mt-2 text-xs text-slate-400">
+                            <span>Puntos: <span id="badge-t13" class="bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-bold">5 pts</span></span>
+                            <span>Componente Modal/Panel</span>
+                        </div>
+                    </div>
+                </label>
+
+                <label id="item-t14" class="flex items-start gap-4 p-4 rounded-xl border border-slate-100 bg-white hover:bg-slate-50/60 transition-all duration-200 cursor-pointer group">
+                    <input type="checkbox" class="task-checkbox mt-1 w-4 h-4 rounded text-rose-500 focus:ring-rose-500 accent-rose-500 cursor-pointer" id="t14" data-points="10">
+                    <div class="flex-1">
+                        <div id="text-t14" class="text-sm font-semibold text-slate-800 transition-all">Implementar filtrado de estancias dinámico por Ciudad</div>
+                        <div class="flex justify-between items-center mt-2 text-xs text-slate-400">
+                            <span>Puntos: <span id="badge-t14" class="bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-bold">10 pts</span></span>
+                            <span>Filtros lógicos</span>
+                        </div>
+                    </div>
+                </label>
+
+                <label id="item-t15" class="flex items-start gap-4 p-4 rounded-xl border border-slate-100 bg-white hover:bg-slate-50/60 transition-all duration-200 cursor-pointer group">
+                    <input type="checkbox" class="task-checkbox mt-1 w-4 h-4 rounded text-rose-500 focus:ring-rose-500 accent-rose-500 cursor-pointer" id="t15" data-points="10">
+                    <div class="flex-1">
+                        <div id="text-t15" class="text-sm font-semibold text-slate-800 transition-all">Implementar filtrado dinámico por Número de Huéspedes (maxGuests >= input)</div>
+                        <div class="flex justify-between items-center mt-2 text-xs text-slate-400">
+                            <span>Puntos: <span id="badge-t15" class="bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-bold">10 pts</span></span>
+                            <span>Filtros lógicos</span>
+                        </div>
+                    </div>
+                </label>
+
+                <label id="item-t16" class="flex items-start gap-4 p-4 rounded-xl border border-slate-100 bg-white hover:bg-slate-50/60 transition-all duration-200 cursor-pointer group">
+                    <input type="checkbox" class="task-checkbox mt-1 w-4 h-4 rounded text-rose-500 focus:ring-rose-500 accent-rose-500 cursor-pointer" id="t16" data-points="10">
+                    <div class="flex-1">
+                        <div id="text-t16" class="text-sm font-semibold text-slate-800 transition-all">Optimizar la actualización en tiempo real de los resultados cuando los filtros cambien</div>
+                        <div class="flex justify-between items-center mt-2 text-xs text-slate-400">
+                            <span>Puntos: <span id="badge-t16" class="bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-bold">10 pts</span></span>
+                            <span>Tiempo Real / Reactividad</span>
+                        </div>
+                    </div>
+                </label>
+            </div>
+        </div>
+
+        <!-- FASE 4 -->
+        <div class="mb-6">
+            <div class="text-sm font-bold text-emerald-700 border-l-4 border-emerald-500 pl-3 py-1 bg-emerald-50/50 rounded-r mb-4 uppercase tracking-wider">
+                Fase 4: Despliegue, Documentación y Entrega (15 Puntos)
+            </div>
+            <div class="space-y-3">
+                <label id="item-t17" class="flex items-start gap-4 p-4 rounded-xl border border-slate-100 bg-white hover:bg-slate-50/60 transition-all duration-200 cursor-pointer group">
+                    <input type="checkbox" class="task-checkbox mt-1 w-4 h-4 rounded text-rose-500 focus:ring-rose-500 accent-rose-500 cursor-pointer" id="t17" data-points="10">
+                    <div class="flex-1">
+                        <div id="text-t17" class="text-sm font-semibold text-slate-800 transition-all">Limpieza general del código (quitar logs, formateo uniforme, nombres descriptivos)</div>
+                        <div class="flex justify-between items-center mt-2 text-xs text-slate-400">
+                            <span>Puntos: <span id="badge-t17" class="bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-bold">10 pts</span></span>
+                            <span>Código Limpio</span>
+                        </div>
+                    </div>
+                </label>
+
+                <label id="item-t18" class="flex items-start gap-4 p-4 rounded-xl border border-slate-100 bg-white hover:bg-slate-50/60 transition-all duration-200 cursor-pointer group">
+                    <input type="checkbox" class="task-checkbox mt-1 w-4 h-4 rounded text-rose-500 focus:ring-rose-500 accent-rose-500 cursor-pointer" id="t18" data-points="5">
+                    <div class="flex-1">
+                        <div id="text-t18" class="text-sm font-semibold text-slate-800 transition-all">Desplegar el proyecto de manera funcional en vivo (Vercel, Netlify o GitHub Pages)</div>
+                        <div class="flex justify-between items-center mt-2 text-xs text-slate-400">
+                            <span>Puntos: <span id="badge-t18" class="bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-bold">5 pts</span></span>
+                            <span>Producción</span>
+                        </div>
+                    </div>
+                </label>
+
+                <label id="item-t19" class="flex items-start gap-4 p-4 rounded-xl border border-slate-100 bg-white hover:bg-slate-50/60 transition-all duration-200 cursor-pointer group">
+                    <input type="checkbox" class="task-checkbox mt-1 w-4 h-4 rounded text-rose-500 focus:ring-rose-500 accent-rose-500 cursor-pointer" id="t19" data-points="0">
+                    <div class="flex-1">
+                        <div id="text-t19" class="text-sm font-semibold text-slate-800 transition-all">Incluir el link de producción en el apartado "About" del repositorio de GitHub</div>
+                        <div class="flex justify-between items-center mt-2 text-xs text-slate-400">
+                            <span>Puntos: <span id="badge-t19" class="bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-bold">Obligatorio</span></span>
+                            <span>Entrega Formal</span>
+                        </div>
+                    </div>
+                </label>
+            </div>
+        </div>
+    </form>
+
+    <footer class="text-center mt-8 pt-6 border-t border-slate-100 text-xs text-slate-400 font-medium">
+        Guía interactiva optimizada con utilidades nativas de Tailwind CSS. Cambios autoguardados en LocalStorage.
+    </footer>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const checkboxes = document.querySelectorAll('.task-checkbox');
+        const taskStats = document.getElementById('task-stats');
+        const scoreStats = document.getElementById('score-stats');
+        const progressBar = document.getElementById('progress-bar');
+
+        function updateDashboard() {
+            let checkedCount = 0;
+            let currentScore = 0;
+            const totalTasks = checkboxes.length;
+
+            checkboxes.forEach(cb => {
+                const parentItem = document.getElementById('item-' + cb.id);
+                const textItem = document.getElementById('text-' + cb.id);
+                const badge = document.getElementById('badge-' + cb.id);
+
+                if (cb.checked) {
+                    checkedCount++;
+                    currentScore += parseInt(cb.getAttribute('data-points') || 0);
+                    
+                    // Clases Tailwind al estar completado
+                    if (parentItem) parentItem.classList.add('bg-slate-50/80', 'border-slate-200', 'opacity-70');
+                    if (textItem) textItem.classList.add('line-through', 'text-slate-400');
+                    if (badge) {
+                        badge.classList.remove('bg-slate-100', 'text-slate-600');
+                        badge.classList.add('bg-emerald-100', 'text-emerald-800');
+                    }
+                } else {
+                    // Clases Tailwind al estar pendiente
+                    if (parentItem) parentItem.classList.remove('bg-slate-50/80', 'border-slate-200', 'opacity-70');
+                    if (textItem) textItem.classList.remove('line-through', 'text-slate-400');
+                    if (badge) {
+                        badge.classList.add('bg-slate-100', 'text-slate-600');
+                        badge.classList.remove('bg-emerald-100', 'text-emerald-800');
+                    }
+                }
+            });
+
+            // Actualizar DOM
+            taskStats.innerText = `${checkedCount} de ${totalTasks}`;
+            scoreStats.innerText = `${currentScore} / 100 pts`;
+            
+            const percentage = totalTasks > 0 ? Math.round((checkedCount / totalTasks) * 100) : 0;
+            progressBar.style.width = percentage + '%';
+        }
+
+        // Recuperar estados previos de LocalStorage y asignar listeners
+        checkboxes.forEach(cb => {
+            const savedState = localStorage.getItem('windbnb_tailwind_task_' + cb.id);
+            if (savedState === 'true') {
+                cb.checked = true;
+            }
+
+            cb.addEventListener('change', () => {
+                localStorage.setItem('windbnb_tailwind_task_' + cb.id, cb.checked);
+                updateDashboard();
+            });
+        });
+
+        // Inicialización en la carga inicial
+        updateDashboard();
+    });
+</script>
+
+</body>
+</html>
