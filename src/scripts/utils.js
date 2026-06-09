@@ -64,7 +64,7 @@ function crearTarjetas (infoDeStays=baseDeDatos){
         imagen.src=stay.photo //agregando el src de c/img
         imagen.alt = `Fotografia de ${stay.title}`
         description.textContent=`${stay.type}. ${stay.beds} beds`
-        rating.innerHTML = `<img src="${star}" alt="logo" class=" bg-amber-600 w-3" > ${stay.rating}`
+        rating.innerHTML = `<img src="${star}" alt="logo" class="  w-5" > ${stay.rating}`
         highlights.textContent = stay.title
 
         tarjeta.append(imagen,description,rating,highlights)
