@@ -91,7 +91,7 @@ function crearTarjetas (infoDeStays=baseDeDatos){
         
         //Agregando clases a cada elemento
 
-        imagen.className="rounded-3xl"
+        imagen.className="rounded-3xl w-full h-60 object-cover"
         description.className=" text-slate-400 "
         rating.className="flex"
         contDescripRate.className = "flex justify-between"
