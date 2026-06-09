@@ -33,6 +33,7 @@ function test(){
 }, 0));
 }
 
+import star from '../images/icons/star.svg'
 //vincular stays.js localmente:
 
 import {stays} from "./stays.js"
@@ -63,7 +64,7 @@ function crearTarjetas (infoDeStays=baseDeDatos){
         imagen.src=stay.photo //agregando el src de c/img
         imagen.alt = `Fotografia de ${stay.title}`
         description.textContent=`${stay.type}. ${stay.beds} beds`
-        rating.innerHTML = `<img src="../images/icons/star.svg" alt="logo" class=" bg-amber-600 w-3"> ${stay.rating}`
+        rating.innerHTML = `<img src="${star}" alt="logo" class=" bg-amber-600 w-3" > ${stay.rating}`
         highlights.textContent = stay.title
 
         tarjeta.append(imagen,description,rating,highlights)
