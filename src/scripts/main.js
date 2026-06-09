@@ -1,5 +1,5 @@
 import '../style.css'
-import { test,crearTarjetas } from "./utils";
+import { test,crearTarjetas,abrirMenuModal } from "./utils";
 
 /**
  * Aquí estará la lógica principal de la aplicación.
@@ -9,3 +9,4 @@ import { test,crearTarjetas } from "./utils";
 
 test()
 crearTarjetas()
+abrirMenuModal()

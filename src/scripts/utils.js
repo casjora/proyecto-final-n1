@@ -43,9 +43,26 @@ const baseDeDatos = stays
 //declaracion de variables que se comunican al DOM:
 
 const contDeTarjetas = document.getElementById("card-container")//section contenedor de las tarjetas
+const searchBar = document.getElementById("search-bar")//contenedor del searchbar al ingresar a la pagina
+const menuModal = document.getElementById("menu")
+const contenedorMain = document.getElementById("contenedor-main")
+const cierraModal = document.getElementById("cierra-modal")
 
 
+//funcion que abre el modal
+function abrirMenuModal(){
+    searchBar.addEventListener("click",()=>{
+        menuModal.classList.toggle("hidden")
+       // menuModal.classList.toggle("h-187","w-full","bg-white")
+       // menuModal.classList.toggle("absolute")
 
+    })
+   cierraModal.addEventListener("click",()=>{
+    menuModal.classList.toggle("hidden")
+
+ 
+        })
+}
 
 //funcion que itera la base de datos y genera las tarjetas. Tiene como objetivo 
 
@@ -59,6 +76,7 @@ function crearTarjetas (infoDeStays=baseDeDatos){
         const description = document.createElement("span")//greyed text que describe las amenidades
         const rating = document.createElement("p")
         const highlights = document.createElement("p")//highlights del departamento al pie de la tarjeta
+        const contDescripRate = document.createElement("div")
 
 //agregando atributos a las variables creadas
         imagen.src=stay.photo //agregando el src de c/img
@@ -67,9 +85,18 @@ function crearTarjetas (infoDeStays=baseDeDatos){
         rating.innerHTML = `<img src="${star}" alt="logo" class="  w-5" > ${stay.rating}`
         highlights.textContent = stay.title
 
-        tarjeta.append(imagen,description,rating,highlights)
+        contDescripRate.append(description,rating)
+        tarjeta.append(imagen,contDescripRate,highlights)
         contDeTarjetas.appendChild(tarjeta)
+        
         //Agregando clases a cada elemento
+
+        imagen.className="rounded-3xl"
+        description.className=" text-slate-400 "
+        rating.className="flex"
+        contDescripRate.className = "flex justify-between"
+        highlights.className ="font-semibold"
+        tarjeta.className = "mb-5"
 
 
     })
@@ -82,4 +109,4 @@ function crearTarjetas (infoDeStays=baseDeDatos){
 
 
 
-export {test,crearTarjetas}
+export {test,crearTarjetas,abrirMenuModal}
