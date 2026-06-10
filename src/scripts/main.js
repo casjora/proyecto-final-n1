@@ -1,5 +1,5 @@
 import '../style.css'
-import { test,crearTarjetas,abrirMenuModal,ejecutarContadores } from "./utils";
+import { test,crearTarjetas,abrirMenuModal,ejecutarContadores,inicializarFiltroCiudades, conectarBotonBuscar } from "./utils";
 
 /**
  * Aquí estará la lógica principal de la aplicación.
@@ -11,3 +11,5 @@ test()
 crearTarjetas()
 abrirMenuModal()
 ejecutarContadores()
+inicializarFiltroCiudades()
+conectarBotonBuscar()

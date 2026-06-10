@@ -17,13 +17,13 @@
         alt="logo"
       />
       <!-- Hidden menu for filters -->
-      <section id="menu" class="absolute h-180 w-full bg-white px-5">
+      <section id="menu" class="absolute h-180 w-full bg-white px-5 hidden">
         <div class="flex justify-between">
           <h2 class="font-semibold text-sm">Edit your search</h2>
           <button id="cierra-modal">✖️</button>
         </div>
         <div class="shadow-md border-gray-600 rounded-2xl overflow-hidden py-2 mb-8">
-          <div class="flex flex-col px-3 font-medium text-slate-700">
+          <div class="relative flex flex-col px-3 font-medium text-slate-700">
             <label class="text-xs " for="location">LOCATION</label>
             <input id="location-input" class="text-sm pb-2 " type="text" id="location" name="location"
             autocomplete="off"
@@ -73,8 +73,8 @@
         id="search-bar"
         class="flex w-11/12 mx-auto my-6 rounded-2xl  border border-gray-100 shadow-md overflow-hidden cursor-pointer justify-center items-center gap-5"
       >
-        <button class=" w-2/5 py-5 px-4 text-md text-left text-gray-400 border-r border-gray-100 truncate">Add location</button>
-        <button class=" w-2/5 py-5 px-4 text-left text-md text-gray-400 border-r border-gray-100 truncate">Add guests</button>
+        <button id="btn-location-main" class=" w-2/5 py-5 px-4 text-md text-left text-gray-400 border-r border-gray-100 truncate">Add location</button>
+        <button id="btn-guests-main" class=" w-2/5 py-5 px-4 text-left text-md text-gray-400 border-r border-gray-100 truncate">Add guests</button>
         <button class="w-1/15 flex justify-center items-center py-5">
           <img
             class="h-5 pr-2 text-red-500"
@@ -87,7 +87,7 @@
 
       <main id="contenedor-main" class="flex flex-col justify-between px-5">
         <div class="my-10 flex justify-between items-center">
-          <h1 class="text-2xl font-bold">Stays in ginland</h1>
+          <h1 class="text-2xl font-bold">Stays in Finland</h1>
           <span class="text-md">12+ stays</span>
         </div>
 

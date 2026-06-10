@@ -61,6 +61,9 @@ const botonesMas = document.querySelectorAll(".mas")
 const botonesMenos = document.querySelectorAll(".menos")
 const dropdownCiudades = document.getElementById("dropdown-ciudades");
 const btnSearchModal = document.getElementById("btn-search-modal");
+const btnLocationMain=document.getElementById("btn-location-main")
+const btnGuestsMain=document.getElementById("btn-guests-main")
+
 
 
 let totalAdultos = 0
@@ -68,9 +71,68 @@ let totalChildren=0
 
 //filtro con dropdown dinamico para las ciudades:
 function inicializarFiltroCiudades(){
-    const ciudadesUnicas = [...new Set]
+    const ciudadesUnicas = [...new Set(baseDeDatos.map(stay=> stay.city))];
+
+    locationInput.addEventListener("input",(e)=>{
+      const valorInput = e.target.value.toLowerCase().trim();
+      dropdownCiudades.innerHTML="";
+
+      if (valorInput===""){
+        dropdownCiudades.classList.add("hidden")
+        return
+      }
+
+      const ciudadesFiltradas = ciudadesUnicas.filter(ciudad => ciudad.toLocaleLowerCase().includes(valorInput));
+
+      if (ciudadesFiltradas.length > 0){
+        dropdownCiudades.classList.remove("hidden");
+
+        ciudadesFiltradas.forEach(ciudad =>{
+          const li = document.createElement("li")
+          li.textContent =`${ciudad}`
+          li.className = "px-4 py-2 hover:bg-gray-100 cursor-pointer text-sm text-slate-700 transition-colors"
+
+          li.addEventListener("click",()=>{
+            locationInput.value = ciudad
+            dropdownCiudades.classList.add("hidden")
+          });
+
+          dropdownCiudades.appendChild(li);
+        });
+      } else {
+        dropdownCiudades.classList.add("hidden")
+      }
+    })
+
+    document.addEventListener("click",(e)=> {
+      if(!locationInput.contains(e.target) && !dropdownCiudades.contains(e.target)){
+        dropdownCiudades.classList.add("hidden")
+      }
+    })
 }
 
+
+
+
+function conectarBotonBuscar(){
+  btnSearchModal.addEventListener("click",()=>{
+    const destindoBuscado = locationInput.value.toLocaleLowerCase().trim();
+    const totalGuests = totalAdultos + totalChildren
+
+    const staysFiltrados= baseDeDatos.filter(stay=>{
+      const coincideCiudad = destindoBuscado ===""||stay.city.toLocaleLowerCase().includes(destindoBuscado)
+      const coincideHuespedes = totalGuests <=stay.maxGuests;
+      return coincideCiudad && coincideHuespedes
+    })
+
+    crearTarjetas(staysFiltrados)
+
+    menuModal.classList.add("hidden")
+    btnLocationMain.textContent=destindoBuscado
+    btnGuestsMain.textContent=`${totalGuests} guests`
+
+  })
+}
 
 /* Funcion actualizar contactos
 * funcion que calcula el total de invitados y actualiza el contenedor guests
@@ -190,4 +252,4 @@ function crearTarjetas(infoDeStays = baseDeDatos) {
   });
 }
 
-export { test, crearTarjetas, abrirMenuModal,ejecutarContadores };
+export { test, crearTarjetas, abrirMenuModal,ejecutarContadores,inicializarFiltroCiudades, conectarBotonBuscar };
