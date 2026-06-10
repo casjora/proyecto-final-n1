@@ -89,11 +89,11 @@ function inicializarFiltroCiudades(){
 
         ciudadesFiltradas.forEach(ciudad =>{
           const li = document.createElement("li")
-          li.textContent =`${ciudad}`
+          li.textContent =`📍${ciudad}, Finland`
           li.className = "px-4 py-2 hover:bg-gray-100 cursor-pointer text-sm text-slate-700 transition-colors"
 
           li.addEventListener("click",()=>{
-            locationInput.value = ciudad
+            locationInput.value = `${ciudad}`
             dropdownCiudades.classList.add("hidden")
           });
 
@@ -243,12 +243,12 @@ function crearTarjetas(infoDeStays = baseDeDatos) {
 
     //Agregando clases a cada elemento
 
-    imagen.className = "rounded-3xl w-full h-60 object-cover";
+    imagen.className = "rounded-3xl w-full h-60 md:h-75 lg:w-full object-cover";
     description.className = " text-slate-400 ";
     rating.className = "flex";
     contDescripRate.className = "flex justify-between";
     highlights.className = "font-semibold";
-    tarjeta.className = "mb-5";
+    tarjeta.className = "mb-5 lg:w-19/20";
   });
 }
 
