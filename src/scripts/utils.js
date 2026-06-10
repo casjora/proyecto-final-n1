@@ -59,10 +59,18 @@ const valorAdultos = document.getElementById("valorAdultos");
 const valorChildren = document.getElementById("valorChildren");
 const botonesMas = document.querySelectorAll(".mas")
 const botonesMenos = document.querySelectorAll(".menos")
+const dropdownCiudades = document.getElementById("dropdown-ciudades");
+const btnSearchModal = document.getElementById("btn-search-modal");
 
 
 let totalAdultos = 0
 let totalChildren=0
+
+//filtro con dropdown dinamico para las ciudades:
+function inicializarFiltroCiudades(){
+    const ciudadesUnicas = [...new Set]
+}
+
 
 /* Funcion actualizar contactos
 * funcion que calcula el total de invitados y actualiza el contenedor guests
