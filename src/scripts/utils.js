@@ -43,7 +43,8 @@ import { stays } from "./stays.js";
 const baseDeDatos = stays;
 
 //declaracion de variables que se comunican al DOM:
-
+const counter = document.getElementById("counter")
+let contador = 0
 const contDeTarjetas = document.getElementById("card-container"); //section contenedor de las tarjetas
 const searchBar = document.getElementById("search-bar"); //contenedor del searchbar al ingresar a la pagina
 const menuModal = document.getElementById("menu");
@@ -69,6 +70,23 @@ const btnGuestsMain=document.getElementById("btn-guests-main")
 let totalAdultos = 0
 let totalChildren=0
 
+
+
+function filtrarDinamicamente(){
+  const destinoBuscado = locationInput.value.toLowerCase().trim();
+  const totalGuests = totalAdultos + totalChildren
+  const staysFiltrados = baseDeDatos.filter(stay=>{
+    const coincideCiudad = destinoBuscado==="" ||stay.city.toLowerCase().includes(destinoBuscado);
+    const coincideHuespedes = totalGuests<=stay.maxGuests;
+    return coincideCiudad && coincideHuespedes
+
+  })
+  crearTarjetas(staysFiltrados)
+
+  btnLocationMain.textContent = destinoBuscado || "Add Location"
+  btnGuestsMain.textContent = totalGuests>0 ?`${totalGuests} guests`:"Add guests"
+}
+
 //filtro con dropdown dinamico para las ciudades:
 function inicializarFiltroCiudades(){
     const ciudadesUnicas = [...new Set(baseDeDatos.map(stay=> stay.city))];
@@ -76,6 +94,8 @@ function inicializarFiltroCiudades(){
     locationInput.addEventListener("input",(e)=>{
       const valorInput = e.target.value.toLowerCase().trim();
       dropdownCiudades.innerHTML="";
+
+      filtrarDinamicamente()
 
       if (valorInput===""){
         dropdownCiudades.classList.add("hidden")
@@ -87,6 +107,7 @@ function inicializarFiltroCiudades(){
       if (ciudadesFiltradas.length > 0){
         dropdownCiudades.classList.remove("hidden");
 
+
         ciudadesFiltradas.forEach(ciudad =>{
           const li = document.createElement("li")
           li.textContent =`📍${ciudad}, Finland`
@@ -95,6 +116,7 @@ function inicializarFiltroCiudades(){
           li.addEventListener("click",()=>{
             locationInput.value = `${ciudad}`
             dropdownCiudades.classList.add("hidden")
+            filtrarDinamicamente()
           });
 
           dropdownCiudades.appendChild(li);
@@ -109,6 +131,7 @@ function inicializarFiltroCiudades(){
         dropdownCiudades.classList.add("hidden")
       }
     })
+    
 }
 
 
@@ -116,20 +139,7 @@ function inicializarFiltroCiudades(){
 
 function conectarBotonBuscar(){
   btnSearchModal.addEventListener("click",()=>{
-    const destindoBuscado = locationInput.value.toLocaleLowerCase().trim();
-    const totalGuests = totalAdultos + totalChildren
-
-    const staysFiltrados= baseDeDatos.filter(stay=>{
-      const coincideCiudad = destindoBuscado ===""||stay.city.toLocaleLowerCase().includes(destindoBuscado)
-      const coincideHuespedes = totalGuests <=stay.maxGuests;
-      return coincideCiudad && coincideHuespedes
-    })
-
-    crearTarjetas(staysFiltrados)
-
     menuModal.classList.add("hidden")
-    btnLocationMain.textContent=destindoBuscado
-    btnGuestsMain.textContent=`${totalGuests} guests`
 
   })
 }
@@ -139,11 +149,11 @@ function conectarBotonBuscar(){
 *
 */
 function actualizarContadores(){
-    const totalGuests = totalAdultos + totalChildren
+   
 
     valorAdultos.textContent=totalAdultos
     valorChildren.textContent = totalChildren
-
+    let totalGuests = totalAdultos + totalChildren
     
 
     if (totalGuests ===0 ){
@@ -182,6 +192,8 @@ contenedorBotonesAdultos.addEventListener("click",(e)=>{
         }
     }
     actualizarContadores();
+    const totalGuests=totalAdultos + totalChildren
+    filtrarDinamicamente()
 })
 
 //niños
@@ -195,6 +207,9 @@ contenedorBotonesChildren.addEventListener("click",(e)=>{
         }
     }
     actualizarContadores();
+    const totalGuests=totalAdultos + totalChildren
+
+    filtrarDinamicamente()
 })
 }
 
@@ -219,37 +234,61 @@ function abrirMenuModal() {
 //funcion que itera la base de datos y genera las tarjetas. Tiene como objetivo
 
 function crearTarjetas(infoDeStays = baseDeDatos) {
+  contador=0
   if (!infoDeStays) return;
   contDeTarjetas.innerHTML = "";
 
   infoDeStays.forEach((stay) => {
+    
     const tarjeta = document.createElement("article"); //cuerpo de cada tarjeta
     const imagen = document.createElement("img"); //src value de cada imagen
     const description = document.createElement("span"); //greyed text que describe las amenidades
     const rating = document.createElement("p");
     const highlights = document.createElement("p"); //highlights del departamento al pie de la tarjeta
     const contDescripRate = document.createElement("div");
+    const superHostContainer = document.createElement("em")
 
     //agregando atributos a las variables creadas
+    if(stay.superHost===true){
+      superHostContainer.className="rounded-2xl border py-1 px-4 text-xs font-semibold "
+      superHostContainer.textContent=`SUPERHOST`
+
+    }else{
+      superHostContainer.classList.add("hidden")
+    }
+
     imagen.src = stay.photo; //agregando el src de c/img
     imagen.alt = `Fotografia de ${stay.title}`;
-    description.textContent = `${stay.type}. ${stay.beds} beds`;
+    description.innerHTML = `${stay.type}. ${stay.beds} beds`;
     rating.innerHTML = `<img src="${star}" alt="logo" class="  w-5" > ${stay.rating}`;
     highlights.textContent = stay.title;
 
-    contDescripRate.append(description, rating);
+ 
+
+    contDescripRate.append(superHostContainer,description, rating);
     tarjeta.append(imagen, contDescripRate, highlights);
+
     contDeTarjetas.appendChild(tarjeta);
 
     //Agregando clases a cada elemento
 
-    imagen.className = "rounded-3xl w-full h-60 md:h-75 lg:w-full object-cover";
+    imagen.className = "rounded-3xl w-full h-60 md:h-75 object-cover";
     description.className = " text-slate-400 ";
     rating.className = "flex";
-    contDescripRate.className = "flex justify-between";
-    highlights.className = "font-semibold";
-    tarjeta.className = "mb-5 lg:w-19/20";
+    contDescripRate.className = "flex justify-between mt-2";
+    highlights.className = "font-semibold text-lg";
+    tarjeta.className = "mb-5 lg:w-19/20 ";
+    contador++
   });
+  if(contador >1 && contador<=12){
+  counter.textContent=`${contador} stay${contador>1 ? 's':''}`}
+  else if (contador===0){
+    counter.textContent=`Please adjust filters`
+  }else {
+    counter.textContent =`12+ stays`
+  }
+//    counter.textContent=`${contador} stay${contador>1 ? 's':''}`
+
 }
 
 export { test, crearTarjetas, abrirMenuModal,ejecutarContadores,inicializarFiltroCiudades, conectarBotonBuscar };
