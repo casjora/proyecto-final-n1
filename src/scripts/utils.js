@@ -5,7 +5,6 @@
  */
 
 function test() {
-  //todos los datos
   console.log(baseDeDatos);
 
   //usando filter
@@ -130,6 +129,7 @@ function inicializarFiltroCiudades(){
 
 
     const ciudadesUnicas = [...new Set(baseDeDatos.map(stay=> stay.city))];
+    console.log([new Set(baseDeDatos.map(stay=> stay.city))])
 
     locationInput.addEventListener("input",(e)=>{
       const valorInput = e.target.value.toLowerCase().trim();
