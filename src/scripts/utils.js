@@ -65,6 +65,31 @@ const btnSearchModal = document.getElementById("btn-search-modal");
 const btnLocationMain=document.getElementById("btn-location-main")
 const btnGuestsMain=document.getElementById("btn-guests-main")
 
+const contenedorBotonLg=document.getElementById("contenedor-btn-lg")//nuevo contenedor
+btnSearchModal//elemento
+const contenedorMovil = document.getElementById("contenedor-movil")
+const btnCalculos = document.getElementById("btn-calculos")
+
+
+
+const breakpointLG=window.matchMedia("(min-width:1024px)")
+
+function reubicarBotonModal(e){
+
+  const matches = e && e.matches !== undefined ? e.matches :breakpointLG.matches;
+
+  if (!contenedorMovil || !contenedorBotonLg || !btnSearchModal ) return;
+
+  if(matches){
+    contenedorBotonLg.appendChild(btnSearchModal)
+  }else{
+    contenedorMovil.appendChild(btnSearchModal)
+  }
+    
+
+}
+breakpointLG.addEventListener("change", reubicarBotonModal);
+
 
 
 let totalAdultos = 0
@@ -89,11 +114,27 @@ function filtrarDinamicamente(){
 
 //filtro con dropdown dinamico para las ciudades:
 function inicializarFiltroCiudades(){
+
+  guestResult.addEventListener("click",()=>{
+    btnCalculos.classList.toggle("hidden")
+    
+
+
+  })
+  locationInput.addEventListener("click",()=>{
+    btnCalculos.classList.add("hidden")
+  })
+
+
+  
+
+
     const ciudadesUnicas = [...new Set(baseDeDatos.map(stay=> stay.city))];
 
     locationInput.addEventListener("input",(e)=>{
       const valorInput = e.target.value.toLowerCase().trim();
       dropdownCiudades.innerHTML="";
+      
 
       filtrarDinamicamente()
 
@@ -131,6 +172,7 @@ function inicializarFiltroCiudades(){
         dropdownCiudades.classList.add("hidden")
       }
     })
+    
     
 }
 
@@ -291,4 +333,4 @@ function crearTarjetas(infoDeStays = baseDeDatos) {
 
 }
 
-export { test, crearTarjetas, abrirMenuModal,ejecutarContadores,inicializarFiltroCiudades, conectarBotonBuscar };
+export { test, crearTarjetas, abrirMenuModal,ejecutarContadores,inicializarFiltroCiudades, conectarBotonBuscar,reubicarBotonModal };
