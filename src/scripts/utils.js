@@ -4,75 +4,75 @@
  * desde el archivo principal para realizar varias operaciones.
  */
 
-function test() {
-  console.log(baseDeDatos);
 
-  //usando filter
-  console.log(baseDeDatos.filter((dato) => dato.city === "Helsinki"));
-
-  //usando map, doblando el numero de camas
-  console.log(baseDeDatos.map((dbeds) => dbeds.beds * 2));
-  //usando map, mostrar todo el arreglo nuevo y doblando el numero de camas
-  console.log(
-    baseDeDatos.map((dbeds) => {
-      return {
-        ...dbeds,
-        beds: dbeds.beds * 2,
-      };
-    }),
-  );
-
-  //lo mismo pero en una sola linea. usar parentesis:
-  console.log(baseDeDatos.map((dbeds) => ({ ...dbeds, beds: dbeds.beds * 2 })));
-
-  //sumar arreglo
-
-  console.log(
-    baseDeDatos.reduce((resultado, elementoActual) => {
-      return resultado + elementoActual.maxGuests;
-    }, 0),
-  );
-}
-
+/* decidi importar el icono estrella en lugar de moverlo a public. En el proceso aprendi que si llamaba desde mi index.html no habia ningun problema con accesar la carpeta scripts y sus dependientes. Pero desde JS si tenia problemas. Probe hacerlo asi, evitando moverlo a public solo para validar que funcionaba.  */ 
 import star from "../images/icons/star.svg";
-//vincular stays.js localmente:
 
+
+//vincular stays.js localmente sin necesidad de usar fetch o mover el archivo a public donde otros podrian accesarlo/copiarlo.
 import { stays } from "./stays.js";
 
+//baseDeDatos es una referencia a la informacion en stays.js. Esta es la referencia que usare en mi codigo.
 const baseDeDatos = stays;
 
-//declaracion de variables que se comunican al DOM:
+/*------ declaracion de variables que se comunican al DOM: ------*/
+
+//Para el contador de stays en main:
 const counter = document.getElementById("counter")
 let contador = 0
+
+//para la creacion de tarjetas dentro de main:
 const contDeTarjetas = document.getElementById("card-container"); //section contenedor de las tarjetas
+
+//para desplegar e interactuar con el menu modal:
 const searchBar = document.getElementById("search-bar"); //contenedor del searchbar al ingresar a la pagina
 const menuModal = document.getElementById("menu");
-const contenedorMain = document.getElementById("contenedor-main");
-const cierraModal = document.getElementById("cierra-modal");
+const cierraModal = document.getElementById("cierra-modal");//Boton X del modal
 
+//para capturar los valores introducidos por los usuarios en ciudad y numero de huespedes
 const locationInput = document.getElementById("location-input");
 const guestResult = document.getElementById("guests-result");
 
+//Contenedores en html de los botones que cambian los valores para el numero de huespedes segun su edad:
 const contenedorBotonesAdultos = document.getElementById("botonesAdultos");
 const contenedorBotonesChildren = document.getElementById("botonesChildren");
+
+//donde ira el valor numerico del numero de adultos o niños segun ingresado por el usuario:
 const valorAdultos = document.getElementById("valorAdultos");
 const valorChildren = document.getElementById("valorChildren");
+
+//Los botones que ejecutan las operaciones de suma o resta. Utilicé clases en lugar de ids dado que realizan la misma accion:
 const botonesMas = document.querySelectorAll(".mas")
 const botonesMenos = document.querySelectorAll(".menos")
+
+//contenedor ul donde se mostraran los resultados filtrados al buscar por pais:
 const dropdownCiudades = document.getElementById("dropdown-ciudades");
-const btnSearchModal = document.getElementById("btn-search-modal");
+
+
+const btnSearchModal = document.getElementById("btn-search-modal");//contenedor del btn search del menu modal
+
+//contenedores de los botones del searchbar en main. Esto me permitira manipularlos para que almacenen el valor usado en los filtros del modal.
 const btnLocationMain=document.getElementById("btn-location-main")
 const btnGuestsMain=document.getElementById("btn-guests-main")
 
+//variables necesarias para migrar el boton search modal cuando la pantalla sea desktop:
 const contenedorBotonLg=document.getElementById("contenedor-btn-lg")//nuevo contenedor
-btnSearchModal//elemento
-const contenedorMovil = document.getElementById("contenedor-movil")
+const contenedorMovil = document.getElementById("contenedor-movil")//contenedor original
+//despues de investigar, esta es una variable que me permite condicionar el cambio en el html para mover el boton search en modal al searchbar donde estan las otras opciones:
+const breakpointLG=window.matchMedia("(min-width:1024px)")
+
+//contenedor que contiene los botones para cambiar el numero de huespedes. La variable permite toggle la clase hidden
 const btnCalculos = document.getElementById("btn-calculos")
 
 
 
-const breakpointLG=window.matchMedia("(min-width:1024px)")
-
+/**
+ * Calcula el área de un rectángulo.
+ * 
+ * @param {number} ancho - El ancho del rectángulo.
+ * @param {number} alto - El alto del rectángulo.
+ * @returns {number} El área calculada.
+ */
 function reubicarBotonModal(e){
 
   const matches = e && e.matches !== undefined ? e.matches :breakpointLG.matches;
@@ -344,4 +344,4 @@ function crearTarjetas(infoDeStays = baseDeDatos) {
 
 }
 
-export { test, crearTarjetas, abrirMenuModal,ejecutarContadores,inicializarFiltroCiudades, conectarBotonBuscar,reubicarBotonModal };
+export { crearTarjetas, abrirMenuModal,ejecutarContadores,inicializarFiltroCiudades, conectarBotonBuscar,reubicarBotonModal };
