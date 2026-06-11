@@ -226,13 +226,19 @@ function ejecutarContadores(){
 contenedorBotonesAdultos.addEventListener("click",(e)=>{
 
     if(e.target.classList.contains("mas")){
-        totalAdultos++;
+      if((totalAdultos+totalChildren)<10){  
+      totalAdultos++;}
+      else{
+        alert ("El maximo total de Guests es 10")
+
+        totalAdultos--}
     }
     else if(e.target.classList.contains("menos")){
         if(totalAdultos>0){
         totalAdultos--;
         }
     }
+    
     actualizarContadores();
     const totalGuests=totalAdultos + totalChildren
     filtrarDinamicamente()
@@ -241,10 +247,15 @@ contenedorBotonesAdultos.addEventListener("click",(e)=>{
 //niños
 contenedorBotonesChildren.addEventListener("click",(e)=>{
     if(e.target.classList.contains("mas")){
-        totalChildren++
+      if((totalAdultos+totalChildren)<10){
+        totalChildren++}
+        
+        else{
+          alert("El maximo total de Guests es 10")
+          totalChildren--}
     }
     else if(e.target.classList.contains("menos")){
-        if(totalChildren>0){
+        if(totalChildren>0 && (totalAdultos+totalChildren)<10){
         totalChildren--
         }
     }
@@ -292,7 +303,7 @@ function crearTarjetas(infoDeStays = baseDeDatos) {
 
     //agregando atributos a las variables creadas
     if(stay.superHost===true){
-      superHostContainer.className="rounded-2xl border py-1 px-4 text-xs font-semibold "
+      superHostContainer.className="rounded-2xl border lg:py-0 lg:px-1 py-1 px-4 text-xs font-semibold "
       superHostContainer.textContent=`SUPERHOST`
 
     }else{
@@ -319,7 +330,7 @@ function crearTarjetas(infoDeStays = baseDeDatos) {
     rating.className = "flex";
     contDescripRate.className = "flex justify-between mt-2";
     highlights.className = "font-semibold text-lg";
-    tarjeta.className = "mb-5 lg:w-19/20 ";
+    tarjeta.className = "mb-5 xl:w-19/20 ";
     contador++
   });
   if(contador >1 && contador<=12){
