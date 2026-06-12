@@ -399,4 +399,4 @@ function crearTarjetas(infoDeStays = baseDeDatos) {
 
 
 //Exportando las funciones necesarias a main.js
-export { crearTarjetas, abrirMenuModal,ejecutarContadores,inicializarFiltroCiudades, conectarBotonBuscar };
+export { crearTarjetas, abrirMenuModal,ejecutarContadores,inicializarFiltroCiudades, conectarBotonBuscar,reubicarBotonModal };

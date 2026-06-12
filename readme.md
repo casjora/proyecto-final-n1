@@ -43,3 +43,13 @@ Este comando se encargará de compilar los estilos cada vez que uses clases de T
 Ya tienes todo listo para empezar. Explora los archivos, experimenta con el código y diviértete aprendiendo. 🎉
 
 Si tienes dudas, no dudes en preguntar. ¡Éxito en tu proyecto! 💪
+
+
+## Aportaciones Creativas/Puntos Extra:
+
+- Limite de 10 para el total de huespedes permitido en la base de datos. Lo hice a traves de condiciones que impiden al usuario ir mas alla del limite de huespedes en la base de datos. 
+- Esto sucede dentro de la funcion ejecutarContadores
+
+- La funcion reubicarBotonModal ayuda a reposicionar un elemento html dentro de un contenedor diferente al considerar el tamaño de la pantalla. Investigue como hacerlo y en el proceso aprendi acerca del tipo de variable MediaQueryListEvent, la cual es un objeto de evento. Se obtiene informacion en tiempo real de cuando un media query cambia. Apendi que la funcion necesitaba ejecutarse tanto dentro de utils.js y dentro de main.js. Si solo lo dejaba en utils al abrir la pagina en escritorio no detectaba un cambio de pantalla y por eso devolvia la vista movil. 
+Tambien aprendi que los event listeners o cualquier codigo fuera de funciones en utils se ejecuta cuando main analiza las funciones importadas desde utils.
+- Esta funcionabilidad me ayudo a mantener coherencia con el diseño solicitado mientras evitaba duplicar elementos html.
