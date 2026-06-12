@@ -45,6 +45,10 @@ const valorChildren = document.getElementById("valorChildren");
 const botonesMas = document.querySelectorAll(".mas")
 const botonesMenos = document.querySelectorAll(".menos")
 
+//variables globales para acumular totales por edades:
+let totalAdultos = 0
+let totalChildren=0
+
 //contenedor ul donde se mostraran los resultados filtrados al buscar por pais:
 const dropdownCiudades = document.getElementById("dropdown-ciudades");
 
@@ -91,11 +95,16 @@ breakpointLG.addEventListener("change", reubicarBotonModal);
 
 
 
-let totalAdultos = 0
-let totalChildren=0
 
 
 
+/**
+ * Calcula el área de un rectángulo.
+ * 
+ * @param {number} ancho - El ancho del rectángulo.
+ * @param {number} alto - El alto del rectángulo.
+ * @returns {number} El área calculada.
+ */
 function filtrarDinamicamente(){
   const destinoBuscado = locationInput.value.toLowerCase().trim();
   const totalGuests = totalAdultos + totalChildren
@@ -112,6 +121,13 @@ function filtrarDinamicamente(){
 }
 
 //filtro con dropdown dinamico para las ciudades:
+/**
+ * Calcula el área de un rectángulo.
+ * 
+ * @param {number} ancho - El ancho del rectángulo.
+ * @param {number} alto - El alto del rectángulo.
+ * @returns {number} El área calculada.
+ */
 function inicializarFiltroCiudades(){
 
   guestResult.addEventListener("click",()=>{
@@ -178,7 +194,13 @@ function inicializarFiltroCiudades(){
 
 
 
-
+/**
+ * Calcula el área de un rectángulo.
+ * 
+ * @param {number} ancho - El ancho del rectángulo.
+ * @param {number} alto - El alto del rectángulo.
+ * @returns {number} El área calculada.
+ */
 function conectarBotonBuscar(){
   btnSearchModal.addEventListener("click",()=>{
     menuModal.classList.add("hidden")
@@ -190,6 +212,13 @@ function conectarBotonBuscar(){
 * funcion que calcula el total de invitados y actualiza el contenedor guests
 *
 */
+/**
+ * Calcula el área de un rectángulo.
+ * 
+ * @param {number} ancho - El ancho del rectángulo.
+ * @param {number} alto - El alto del rectángulo.
+ * @returns {number} El área calculada.
+ */
 function actualizarContadores(){
    
 
@@ -219,9 +248,16 @@ function actualizarContadores(){
         }
 }
 
-//manejo de clicks en contenedores adulto y niños. Delegando eventos segun target.
+//
 
 //adultos
+/**
+ * manejo de clicks en contenedores adulto y niños. Delegando eventos segun target en los grupos de edades, adultos o niños.
+ * Si el usuario hace click en un elemento dentro del contenedor de botones que tenga la clase "mas"(para sumar) o "menos" (para restar) y el resultado de la operacion es menor o igual a 10 la operacion se ejecuta. 
+ * En caso de intentar introducir un valor superior a 10 se muestra una alerta y se fuerza el valor a mantener el maximo.
+ * 
+ * @returns {void} Modifica el DOM directamente.
+ */
 function ejecutarContadores(){
 contenedorBotonesAdultos.addEventListener("click",(e)=>{
 
@@ -231,7 +267,7 @@ contenedorBotonesAdultos.addEventListener("click",(e)=>{
       else{
         alert ("El maximo total de Guests es 10")
 
-        totalAdultos--}
+        totalAdultos}
     }
     else if(e.target.classList.contains("menos")){
         if(totalAdultos>0){
@@ -266,40 +302,43 @@ contenedorBotonesChildren.addEventListener("click",(e)=>{
 })
 }
 
-//funcion que inicializara los event listeners en main:
-
-function inicializarEventos(){
-    location
-}
-
-//funcion que abre el modal
+/**
+ * funcion que abre o cierra el menu oculto mediante un evento click en el elemento searchBar.
+ * 
+ * 
+ * @returns {void} Modifica el DOM directamente
+ */
 function abrirMenuModal() {
   searchBar.addEventListener("click", () => {
     menuModal.classList.toggle("hidden");
-    // menuModal.classList.toggle("h-187","w-full","bg-white")
-    // menuModal.classList.toggle("absolute")
   });
   cierraModal.addEventListener("click", () => {
     menuModal.classList.toggle("hidden");
   });
 }
 
-//funcion que itera la base de datos y genera las tarjetas. Tiene como objetivo
-
+/**
+ * funcion que itera la base de datos y genera las tarjetas. Tiene como objetivo crear elementos html individuales para cada tarjeta. Tambien ejecuta el contador de opciones disponibles. Tiene un parametro por defecto para ejecutar o mostrar todos los elementos al inicio.
+ * 
+ * @param {infoDeStays} Objeto - Lista necesaria para iterar y crear las tarjetas
+ * @returns {void} - No retorna ningún valor, modifica directamente el DOM.
+ */
 function crearTarjetas(infoDeStays = baseDeDatos) {
-  contador=0
-  if (!infoDeStays) return;
-  contDeTarjetas.innerHTML = "";
+  contador=0 //permite a la funcion usar la variable contador localmente
+  
+  if (!infoDeStays) return;//Si por alguna razon la lista de objetos proveida estuviese corrupta o no se proveyese no se ejecutaria nada.
+  contDeTarjetas.innerHTML = "";//Limpia el contenedor de tarjetas en el html cada vez que se ejecuta la funcion
 
   infoDeStays.forEach((stay) => {
-    
+    //Permite iterar cada objeto del arreglo para crear elementos html para cada uno:
+
     const tarjeta = document.createElement("article"); //cuerpo de cada tarjeta
     const imagen = document.createElement("img"); //src value de cada imagen
     const description = document.createElement("span"); //greyed text que describe las amenidades
-    const rating = document.createElement("p");
+    const rating = document.createElement("p");//contenedor del valor rating de cada tarjeta
     const highlights = document.createElement("p"); //highlights del departamento al pie de la tarjeta
-    const contDescripRate = document.createElement("div");
-    const superHostContainer = document.createElement("em")
+    const contDescripRate = document.createElement("div");//contenedor de la description y rating
+    const superHostContainer = document.createElement("em")//contenedor que menciona si es o no superhost
 
     //agregando atributos a las variables creadas
     if(stay.superHost===true){
@@ -310,17 +349,15 @@ function crearTarjetas(infoDeStays = baseDeDatos) {
       superHostContainer.classList.add("hidden")
     }
 
-    imagen.src = stay.photo; //agregando el src de c/img
+    imagen.src = stay.photo; 
     imagen.alt = `Fotografia de ${stay.title}`;
     description.innerHTML = `${stay.type}. ${stay.beds} beds`;
     rating.innerHTML = `<img src="${star}" alt="logo" class="  w-5" > ${stay.rating}`;
     highlights.textContent = stay.title;
 
- 
-
+    //uniendo los elementos a las etiquetas padre respectivas
     contDescripRate.append(superHostContainer,description, rating);
     tarjeta.append(imagen, contDescripRate, highlights);
-
     contDeTarjetas.appendChild(tarjeta);
 
     //Agregando clases a cada elemento
@@ -331,8 +368,12 @@ function crearTarjetas(infoDeStays = baseDeDatos) {
     contDescripRate.className = "flex justify-between mt-2";
     highlights.className = "font-semibold text-lg";
     tarjeta.className = "mb-5 xl:w-19/20 ";
+
+    //el contador suma 1 por cada elemento que se genera
     contador++
   });
+
+  //condicion para el contador, mantiene el diseño original de mostrar un "+12" cuando se muestran todos los stays
   if(contador >1 && contador<=12){
   counter.textContent=`${contador} stay${contador>1 ? 's':''}`}
   else if (contador===0){
@@ -340,8 +381,8 @@ function crearTarjetas(infoDeStays = baseDeDatos) {
   }else {
     counter.textContent =`12+ stays`
   }
-//    counter.textContent=`${contador} stay${contador>1 ? 's':''}`
-
 }
 
+
+//Exportando las funciones necesarias a main.js
 export { crearTarjetas, abrirMenuModal,ejecutarContadores,inicializarFiltroCiudades, conectarBotonBuscar,reubicarBotonModal };
