@@ -70,12 +70,17 @@ const btnCalculos = document.getElementById("btn-calculos")
 
 
 
+/* FUNCIONES: */
+
 /**
- * Calcula el área de un rectángulo.
- * 
- * @param {number} ancho - El ancho del rectángulo.
- * @param {number} alto - El alto del rectángulo.
- * @returns {number} El área calculada.
+ * Se encarga del diseño responsivo del menú modal, reubicando el botón "Search" según el tamaño de pantalla.
+ * Evalúa mediante un MediaQueryList (breakpointLG) si la pantalla es de tamaño desktop (minimo 1024px).
+ * Si la condición se cumple, remueve el botón del contenedor móvil y lo inserta en el contenedor de escritorio (integrándolo visualmente a la barra de búsqueda principal). 
+ * De lo contrario, lo devuelve a su posición original de móvil.
+ * Funciona tanto de forma automática mediante el listener de cambio de pantalla (change) el cual se ejecuta fuera de la funcion para que main.js lo ejecute cuando revisa los imports que vienen de stays.js, 
+ * como de forma manual al ser invocada directamente.
+ * @param {MediaQueryListEvent} e - El evento del breakpoint que se dispara al cambiar el tamaño de la pantalla.
+ * @returns {void} No retorna ningún valor, modifica la estructura del DOM moviendo el elemento de un contenedor a otro.
  */
 function reubicarBotonModal(e){
 
@@ -91,6 +96,7 @@ function reubicarBotonModal(e){
     
 
 }
+
 breakpointLG.addEventListener("change", reubicarBotonModal);
 
 
@@ -99,11 +105,19 @@ breakpointLG.addEventListener("change", reubicarBotonModal);
 
 
 /**
- * Calcula el área de un rectángulo.
+ * Realiza el filtrado combinado, sea por numero de huespedes o por ciudad.
+ * No se exporta a main.js solo es utilizada por esas otras funciones para ejecutar los calculos correspondientes.
  * 
- * @param {number} ancho - El ancho del rectángulo.
- * @param {number} alto - El alto del rectángulo.
- * @returns {number} El área calculada.
+ * Almacena el resultado ingresado por el usuario en el numero de huespedes y en la ciudad, filtrando por medio de valores booleanos.
+ * coincideCiudad evalua si el destinoBuscado esta vacio o si no esta en blanco si el valor introducido existe dentro de la propiedad city de stays.js
+ * coincideHuespedes evalua que la suma o resultado de las operaciones de huespedes sea menor o igual a la propiedad maxGuests en stays.js
+ * 
+ * returna un valor booleano del analisis de ambas variables.
+ * pasa la lista de staysFiltrados como argumento para la funcion crearTarjetas. La lista creada mostrara los resultados que muestren los resultados.
+ * 
+ * Al final, en esta funcion los botones en main para huespedes y ciudad se actualizan en base a las condiciones en staysFiltrados. Si el destino queda en blanco btnLocationMain mostrara: "Add location", si contiene un valor mostrara el valor buscado en el filtro modal.
+ * btnGuestsMain por medio de un operador ternario muestra si la condicion es verdadera, el total de huespedes buscados en el modal. Si es falso, o sea si es === 0, muestra el mensaje: "Add guests"
+ * @returns {void} Se ejecuta dentro de otras funciones para modificar el DOM como resultado.
  */
 function filtrarDinamicamente(){
   const destinoBuscado = locationInput.value.toLowerCase().trim();
@@ -122,10 +136,9 @@ function filtrarDinamicamente(){
 
 //
 /**
- * Filtra usando un dropdown dinamico para las ciudades.
+ * Filtra usando un dropdown dinamico para las ciudades. 
  * 
- * 
- * 
+ * Llama a la funcion filtrarDinamicamente, la cual crea una lista filtrada a utilizar en crearTarjetas.
  * 
  * @returns {void} Modifica el DOM directamente y procesa los filtros creados en filtrarDinamicamente 
  */
@@ -171,8 +184,12 @@ function inicializarFiltroCiudades(){
         return
       }
 
+      /**
+       * Esta variable usa el array resultante de filtrar los valores unicos de las ciudades. Compara que la propiedad city coincida con el contenido ingresado por el usuario.
+       */
       const ciudadesFiltradas = ciudadesUnicas.filter(ciudad => ciudad.toLocaleLowerCase().includes(valorInput));
 
+      //si el arreglo resultante tiene al menos 1 elemento, se remueve la clase hidden del ul dropdownCiudades:
       if (ciudadesFiltradas.length > 0){
         dropdownCiudades.classList.remove("hidden");
 
@@ -195,6 +212,7 @@ function inicializarFiltroCiudades(){
       }
     })
 
+    //Si el usuario hace click en cualquier lugar que no sea el li resultante que muestra la lista de ciudades filtradas, el menu desaparece.
     document.addEventListener("click",(e)=> {
       if(!locationInput.contains(e.target) && !dropdownCiudades.contains(e.target)){
         dropdownCiudades.classList.add("hidden")
@@ -382,4 +400,4 @@ function crearTarjetas(infoDeStays = baseDeDatos) {
 
 
 //Exportando las funciones necesarias a main.js
-export { crearTarjetas, abrirMenuModal,ejecutarContadores,inicializarFiltroCiudades, conectarBotonBuscar,reubicarBotonModal };
+export { crearTarjetas, abrirMenuModal,ejecutarContadores,inicializarFiltroCiudades, conectarBotonBuscar };
