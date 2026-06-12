@@ -53,3 +53,5 @@ Si tienes dudas, no dudes en preguntar. ¡Éxito en tu proyecto! 💪
 - La funcion reubicarBotonModal ayuda a reposicionar un elemento html dentro de un contenedor diferente al considerar el tamaño de la pantalla. Investigue como hacerlo y en el proceso aprendi acerca del tipo de variable MediaQueryListEvent, la cual es un objeto de evento. Se obtiene informacion en tiempo real de cuando un media query cambia. Apendi que la funcion necesitaba ejecutarse tanto dentro de utils.js y dentro de main.js. Si solo lo dejaba en utils al abrir la pagina en escritorio no detectaba un cambio de pantalla y por eso devolvia la vista movil. 
 Tambien aprendi que los event listeners o cualquier codigo fuera de funciones en utils se ejecuta cuando main analiza las funciones importadas desde utils.
 - Esta funcionabilidad me ayudo a mantener coherencia con el diseño solicitado mientras evitaba duplicar elementos html.
+
+- Tambien agregue la vista Tablet al usar grid para dimensionar el numero de columnas basado en el tamaño de la pantalla.
