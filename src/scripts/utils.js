@@ -111,8 +111,7 @@ breakpointLG.addEventListener("change", reubicarBotonModal);
  * Almacena el resultado ingresado por el usuario en el numero de huespedes y en la ciudad, filtrando por medio de valores booleanos.
  * coincideCiudad evalua si el destinoBuscado esta vacio o si no esta en blanco si el valor introducido existe dentro de la propiedad city de stays.js
  * coincideHuespedes evalua que la suma o resultado de las operaciones de huespedes sea menor o igual a la propiedad maxGuests en stays.js
- * 
- * returna un valor booleano del analisis de ambas variables.
+ * retorna un valor booleano del analisis de ambas variables dentro del filter en staysFiltrados. Si el resultado es verdadero se almacena en staysFiltrados, si es falso se descarta.
  * pasa la lista de staysFiltrados como argumento para la funcion crearTarjetas. La lista creada mostrara los resultados que muestren los resultados.
  * 
  * Al final, en esta funcion los botones en main para huespedes y ciudad se actualizan en base a las condiciones en staysFiltrados. Si el destino queda en blanco btnLocationMain mostrara: "Add location", si contiene un valor mostrara el valor buscado en el filtro modal.
@@ -356,7 +355,7 @@ function crearTarjetas(infoDeStays = baseDeDatos) {
 
     //agregando atributos a las variables creadas
     if(stay.superHost===true){
-      superHostContainer.className="rounded-2xl border lg:py-0 lg:px-1 py-1 px-4 text-xs font-semibold "
+      superHostContainer.className=" flex justify-center items-center rounded-2xl border lg:py-0 lg:px-1 py-1 px-4 text-xs font-semibold "
       superHostContainer.textContent=`SUPERHOST`
 
     }else{
@@ -377,10 +376,10 @@ function crearTarjetas(infoDeStays = baseDeDatos) {
     //Agregando clases a cada elemento
 
     imagen.className = "rounded-3xl w-full h-60 md:h-75 object-cover";
-    description.className = " text-slate-400 ";
+    description.className = " text-slate-400 text-sm ";
     rating.className = "flex";
     contDescripRate.className = "flex justify-between mt-2";
-    highlights.className = "font-semibold text-lg";
+    highlights.className = "font-semibold text-base";
     tarjeta.className = "mb-5 xl:w-19/20 ";
 
     //el contador suma 1 por cada elemento que se genera
