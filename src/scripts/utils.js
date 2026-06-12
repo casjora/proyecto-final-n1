@@ -281,8 +281,7 @@ contenedorBotonesAdultos.addEventListener("click",(e)=>{
       totalAdultos++;}
       else{
         alert ("El maximo total de Guests es 10")
-
-        totalAdultos}
+      }
     }
     else if(e.target.classList.contains("menos")){
         if(totalAdultos>0){
@@ -303,7 +302,7 @@ contenedorBotonesChildren.addEventListener("click",(e)=>{
         
         else{
           alert("El maximo total de Guests es 10")
-          totalChildren--}
+          }
     }
     else if(e.target.classList.contains("menos")){
         if(totalChildren>0 && (totalAdultos+totalChildren)<10){
