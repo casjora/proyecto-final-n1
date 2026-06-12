@@ -120,40 +120,52 @@ function filtrarDinamicamente(){
   btnGuestsMain.textContent = totalGuests>0 ?`${totalGuests} guests`:"Add guests"
 }
 
-//filtro con dropdown dinamico para las ciudades:
+//
 /**
- * Calcula el área de un rectángulo.
+ * Filtra usando un dropdown dinamico para las ciudades.
  * 
- * @param {number} ancho - El ancho del rectángulo.
- * @param {number} alto - El alto del rectángulo.
- * @returns {number} El área calculada.
+ * 
+ * 
+ * 
+ * @returns {void} Modifica el DOM directamente y procesa los filtros creados en filtrarDinamicamente 
  */
 function inicializarFiltroCiudades(){
 
+
+  //Al hacer click en guestResult se despliega el contenedor de los botones que calculan o manipulan el numero de huespedes a buscar
   guestResult.addEventListener("click",()=>{
     btnCalculos.classList.toggle("hidden")
     
 
 
   })
+  //Al hacer click en locationInput se esconde el contenedor de los botones que calculan o manipulan el numero de huespedes a buscar
+
   locationInput.addEventListener("click",()=>{
     btnCalculos.classList.add("hidden")
   })
 
-
-  
-
-
+    /**
+     * Se crea un arreglo con valores unicos de ciudad en el objeto.
+     * Es una bonita combinacion de 3 herramientas poderosas:
+     * 1. ... spread operator
+     * 2. new Set
+     * 3. map
+     * 
+     * Map crea una copia del contenido de cada objeto en la propiedad city.
+     * Luego new Set lista unicamente valores unicos, automaticamente descarta duplicados y crea un listado de objetos.
+     * El spread operator saca los valores creados en new Set y por estar dentro de corchetes, los guarda en un array que nos permite iterar sin duplicados la lista de ciudades disponibles en el nuevo array */ 
     const ciudadesUnicas = [...new Set(baseDeDatos.map(stay=> stay.city))];
-    console.log([new Set(baseDeDatos.map(stay=> stay.city))])
 
+    //al insertar informacion dentro de location input se captura en minusculas el contenido escrito
     locationInput.addEventListener("input",(e)=>{
-      const valorInput = e.target.value.toLowerCase().trim();
-      dropdownCiudades.innerHTML="";
+      const valorInput = e.target.value.toLowerCase().trim();//toma el valor 
+      dropdownCiudades.innerHTML="";//limpia resultados anteriores en el dropdown
       
 
       filtrarDinamicamente()
 
+      //si el input de ciudades esta en blanco, no se muestra el ul, esto hace que solo se muestren elementos que hagan match con lo que el usuario ingrese
       if (valorInput===""){
         dropdownCiudades.classList.add("hidden")
         return
@@ -195,11 +207,9 @@ function inicializarFiltroCiudades(){
 
 
 /**
- * Calcula el área de un rectángulo.
+ * Hace que el boton buscar que aparece al usar el menu modal pueda cerrar el menu modal
  * 
- * @param {number} ancho - El ancho del rectángulo.
- * @param {number} alto - El alto del rectángulo.
- * @returns {number} El área calculada.
+ * @returns {void}
  */
 function conectarBotonBuscar(){
   btnSearchModal.addEventListener("click",()=>{
@@ -208,16 +218,12 @@ function conectarBotonBuscar(){
   })
 }
 
-/* Funcion actualizar contactos
-* funcion que calcula el total de invitados y actualiza el contenedor guests
-*
-*/
+
 /**
- * Calcula el área de un rectángulo.
- * 
- * @param {number} ancho - El ancho del rectángulo.
- * @param {number} alto - El alto del rectángulo.
- * @returns {number} El área calculada.
+ * funcion que calcula el total de huespedes y actualiza el contenedor guests
+ * Por medio de las variables con scope interno valorAdultos y valorChildren se modifica el DOM para poder mostar la cantidad total por grupo de edad (adultos o niños).
+ * Si el total de invitados es 0, el contenedor guestResult(en el main) muestra un mensaje "Add guests", sino, muestra un mensaje que por medio de un operador ternario diferencía si el resultado es singular o plural.
+ * @returns {void} - Modifica el DOM direcatamente
  */
 function actualizarContadores(){
    
@@ -229,14 +235,6 @@ function actualizarContadores(){
 
     if (totalGuests ===0 ){
         guestResult.textContent = "Add guests"
-        if(totalAdultos===0){
-/*             for (let i = 0; i < botonesMenos.length; i++) {
-                const element = botonesMenos[i];
-                element.classList.add("hidden")
-                
-            } */
-        }
-
     }else{
         guestResult.textContent = `${totalGuests} guest${totalGuests>1 ?'s':''}`
             /* for (let i = 0; i < botonesMenos.length; i++) {
@@ -248,13 +246,12 @@ function actualizarContadores(){
         }
 }
 
-//
-
-//adultos
 /**
- * manejo de clicks en contenedores adulto y niños. Delegando eventos segun target en los grupos de edades, adultos o niños.
+ * maneja los clicks en contenedores adulto y niños. Delegando eventos segun target en los grupos de edades, adultos o niños.
  * Si el usuario hace click en un elemento dentro del contenedor de botones que tenga la clase "mas"(para sumar) o "menos" (para restar) y el resultado de la operacion es menor o igual a 10 la operacion se ejecuta. 
  * En caso de intentar introducir un valor superior a 10 se muestra una alerta y se fuerza el valor a mantener el maximo.
+ * 
+ * Las funciones actualizarContadores y filtrarDinamicamente se ejecuta dentro de esta funcion para poder modificar el DOM directamente.
  * 
  * @returns {void} Modifica el DOM directamente.
  */
