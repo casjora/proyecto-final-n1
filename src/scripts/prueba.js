@@ -47,8 +47,18 @@ function simuladorDeCombate(){
 
         ptosVida=ptosVida-enemyAttack
         console.log(`Resultado del ataque ${contador}` )
+        console.log(`Tienes ${ptosVida} puntos de vida`)
+        
+            contador++
+        if(ptosVida<10){
+            alert("¡Peligro crítico!")
+            break
+
+        }else{
         alert("Sobreviviste")
-        contador++
+        }
+
+    
+
     }
-    alert("¡Peligro crítico!")
 }
