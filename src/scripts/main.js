@@ -7,7 +7,7 @@
 import '../style.css'//importando los estilos de tailwind a traves de js
 
 //Importando funciones desde stays.js:
-import {crearTarjetas,abrirMenuModal,ejecutarContadores,inicializarFiltroCiudades, conectarBotonBuscar,reubicarBotonModal } from "./utils";
+import {crearTarjetas,abrirMenuModal,ejecutarContadores,inicializarFiltroCiudades, conectarBotonBuscar,reubicarBotonModal } from "./utils.js";
 
 
 //Llamando a cada una de las funciones que usa mi pagina para funcionar:
