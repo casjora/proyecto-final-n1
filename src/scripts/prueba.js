@@ -41,10 +41,14 @@ function simuladorDeCombate(){
     let ptosVida=parseInt(prompt("Cuantos puntos de vida tendra el jugador?"))
     let enemyAttack = parseInt(prompt("Cuantos puntos de ataque tendra el enemigo?"))
 
+    let contador = 1
     console.log(`la vida del usuario es ${ptosVida}`)
     while (ptosVida >=10) {
+
         ptosVida=ptosVida-enemyAttack
+        console.log(`Resultado del ataque ${contador}` )
         alert("Sobreviviste")
+        contador++
     }
     alert("¡Peligro crítico!")
 }
