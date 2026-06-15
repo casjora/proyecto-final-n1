@@ -44,7 +44,7 @@ function simuladorDeCombate(){
     console.log(`la vida del usuario es ${ptosVida}`)
     while (ptosVida >=10) {
         ptosVida=ptosVida-enemyAttack
-        alert("sobreviviste")
+        alert("Sobreviviste")
     }
-    alert("Peligro Critico")
+    alert("¡Peligro crítico!")
 }
