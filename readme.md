@@ -1,57 +1,47 @@
-# ¡Bienvenidos al proyecto! 🎉
+# StayFinder - Finland Stays (Windbnb Challenge Clone)
 
-Este repositorio es una plantilla diseñada para ayudarte a comenzar rápidamente. Sigue estos pasos para configurar tu entorno y empezar a trabajar:
+A modern, responsive, and dynamic property search and filtering web application built with **Vanilla JavaScript** and styled using **Tailwind CSS**. This project demonstrates advanced DOM manipulation, dynamic filtering systems, and mobile-first responsive layout shifts without relying on heavy framework architectures.
 
-## 1. Usa esta plantilla
-Haz clic en el botón **"Use this template"** en la parte superior derecha de este repositorio para crear un nuevo proyecto basado en esta plantilla. 📂
+---
 
-## 2. Instala las dependencias
-Después de clonar tu nuevo repositorio, abre la terminal en la carpeta del proyecto y ejecuta:
-```bash
-npm install
-```
-Esto instalará todo lo necesario para que el proyecto funcione. ✅
+## 🚀 Live Demo & Preview
+*(Add your live project link or deployment URL here, e.g., GitHub Pages/Vercel)*
 
-## 3. Compila los estilos de Tailwind CSS ✂️
-Para que los estilos de Tailwind funcionen mientras trabajas, ejecuta:
-```bash
-npm run tw
-```
-Este comando se encargará de compilar los estilos cada vez que uses clases de Tailwind en tu HTML. 🎨
+---
 
-## 4. Archivos importantes 📂
-- **`src/scripts/stays.js`**: Aquí encontrarás la data que necesitarás usar durante el proyecto. ¡Es tu fuente de información principal! 📊
-- **`src/scripts/main.js`**: Este es el archivo donde escribirás el código principal de tu aplicación. Todo lo que construyas comenzará aquí. 🛠️
-- **`src/scripts/utils.js`**: Este archivo contiene funciones auxiliares que pueden ser reutilizadas en diferentes partes de tu proyecto. Es un buen lugar para almacenar lógica común, como validaciones, formateos o cálculos. 🔧
-- **`src/images/design`**: En esta carpeta encontrarás capturas que muestran cómo debería lucir el resultado esperado. Esto te servirá como referencia visual. 🖼️
-- **`index.html`**: Este es el archivo donde desarrollarás el diseño de tu proyecto. Aquí se integrarán los estilos y el código para dar vida a tu aplicación. 🖋️
+## ✨ Features & Technical Highlights
 
-```plaintext
-📂 ├── src/
-    📜 ├── scripts/
-         📄 ├── stays.js
-         📄 └── main.js
-    🖼️ ├── images/
-         🖼️ └── design/
-📄 ├── index.html
-📦 ├── package.json
-📖 └── README.md
-🚫 └── .gitignore
-```
+* **Dynamic Dual-Criteria Filtering Engine:** Real-time synchronized sorting that handles simultaneous requests for geographic location and total guest capacity (segregated into separate calculators for adults and children).
+* **High-Performance Unique Value Extraction:** Leverages modern JavaScript features `Array.prototype.map()`, `new Set()`, and the `...` (spread operator) to map out available cities dynamically from a local database file, efficiently dropping duplicates on the fly.
+* **Adaptive Structural Component Relocation:** Implements a responsive layout controller using JavaScript's native `window.matchMedia()` API. It automatically moves the "Search" CTA button from the mobile modal container into the main screen navigation bar on desktop dimensions, preventing DOM element duplication and maintaining clean markup.
+* **Dynamic DOM Card Generation:** Implements zero-dependency HTML compilation using `document.createElement` loops to parse local database lists, evaluate data attributes (such as `superHost` status), and dynamically render performance-optimized property listings.
+* **Robust Event Delegation:** Handles aggregate button logic (`+` / `-` incremental calculators) via unified event listeners, reducing memory leaks and improving input processing efficiency.
 
-## 5. ¡Manos a la obra! 🚀
-Ya tienes todo listo para empezar. Explora los archivos, experimenta con el código y diviértete aprendiendo. 🎉
+---
 
-Si tienes dudas, no dudes en preguntar. ¡Éxito en tu proyecto! 💪
+## 🛠️ Tech Stack & Architecture
 
+* **Logic Core:** Vanilla JavaScript (ES6+ Modules)
+* **Styling Engine:** Tailwind CSS
+* **Build Tool & Assets Bundler:** Vite (using JS asset imports for optimized SVG handling)
+* **Markup Structure:** Semantic HTML5 (Mobile-First approach)
 
-## Aportaciones Creativas/Puntos Extra:
+---
 
-- Limite de 10 para el total de huespedes permitido en la base de datos. Lo hice a traves de condiciones que impiden al usuario ir mas alla del limite de huespedes en la base de datos. 
-- Esto sucede dentro de la funcion ejecutarContadores
+## 📁 Key File Structure Breakdown
 
-- La funcion reubicarBotonModal ayuda a reposicionar un elemento html dentro de un contenedor diferente al considerar el tamaño de la pantalla. Investigue como hacerlo y en el proceso aprendi acerca del tipo de variable MediaQueryListEvent, la cual es un objeto de evento. Se obtiene informacion en tiempo real de cuando un media query cambia. Apendi que la funcion necesitaba ejecutarse tanto dentro de utils.js y dentro de main.js. Si solo lo dejaba en utils al abrir la pagina en escritorio no detectaba un cambio de pantalla y por eso devolvia la vista movil. 
-Tambien aprendi que los event listeners o cualquier codigo fuera de funciones en utils se ejecuta cuando main analiza las funciones importadas desde utils.
-- Esta funcionabilidad me ayudo a mantener coherencia con el diseño solicitado mientras evitaba duplicar elementos html.
+### 1. `main.js`
+Acts as the central entry point of the frontend app. It handles CSS imports and manages the sequence execution of foundational routines:
 
-- Tambien agregue la vista Tablet al usar grid para dimensionar el numero de columnas basado en el tamaño de la pantalla.
+### 2. utils.js
+The heavy-lifter utility module. Contains helper functions, internal global counters (with capped capacity limits up to 10 guests maximum via safety validation alerts), and filtering functions (filtrarDinamicamente()) that change text content configurations natively on state alterations.
+
+### 3. index.html
+Semantic baseline layout designed with extensive utility classes. Features an overlays modal navigation window that acts as a dropdown selection layout for responsive user profiles.
+
+## 💡 Key Learning Experiences
+Understanding JS Native Modules: Successfully isolated domain logic into decoupled ECMAScript modules (main.js and utils.js) for sustainable development workflows.
+
+Handling Media Queries via JS: Mastered layouts adjustments dynamically using programmatic listeners (MediaQueryList.addEventListener('change')) instead of relying completely on CSS breakpoints for component repositioning.
+
+UI/UX States Integration: Implemented intuitive fallback feedback conditions for users—such as modifying layout indicators to show "Please adjust filters" when no property matches criteria.
